@@ -205,6 +205,7 @@
       cursor: pointer;
       transition: 0.18s ease;
       font-size: 0.96rem;
+      display: inline-block;
     }
 
     .btn:hover {
@@ -506,6 +507,27 @@
       padding: 16px;
     }
 
+    .premium-upsell {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(245,158,11,0.10);
+      border: 1px solid rgba(245,158,11,0.18);
+    }
+
+    .premium-upsell strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #fde68a;
+    }
+
+    .premium-upsell p {
+      margin: 0 0 14px;
+      color: #f8e8b0;
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
     .pricing {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -679,12 +701,12 @@
             <div class="pill">✓ Jasna predstavitev vozila</div>
             <div class="pill">✓ Enostaven začetek</div>
             <div class="pill">✓ Profesionalen izgled oglasa</div>
-            <div class="pill">✓ Platforma v zgodnji fazi</div>
+            <div class="pill">✓ Takojšen PRO upgrade</div>
           </div>
 
           <div class="hero-actions">
             <a href="#ai" class="btn btn-primary">Ustvari oglas</a>
-            <a href="#kako-deluje" class="btn btn-secondary">Poglej kako deluje</a>
+            <a href="#premium" class="btn btn-secondary">Poglej premium</a>
           </div>
         </div>
 
@@ -779,8 +801,8 @@
 
           <div class="step-card">
             <div class="step-number">3</div>
-            <h3>Oglas izboljšate in uporabite</h3>
-            <p>Besedilo lahko prilagodite ter ga uporabite kot osnovo za objavo in nadaljnjo prodajo.</p>
+            <h3>Nadgradite na PRO</h3>
+            <p>Če želite boljši rezultat, lahko takoj odklenete premium različico in podprete platformo.</p>
           </div>
         </div>
       </div>
@@ -844,6 +866,17 @@
 
             <button class="btn btn-primary" onclick="generateAd()">Ustvari oglas</button>
 
+            <div class="premium-upsell">
+              <strong>Želiš še bolj profesionalen rezultat?</strong>
+              <p>
+                Nadgradi na PRO oglas in podpri razvoj TOPAVTO. To je enostaven način monetizacije,
+                ki ga lahko začneš uporabljati takoj.
+              </p>
+              <a href="https://buy.stripe.com/eVqcN4dAKgo4cpA7ow2B200" target="_blank" class="btn btn-primary">
+                Nadgradi na PRO oglas
+              </a>
+            </div>
+
             <div class="info-note">
               Namen tega orodja je pomagati uporabniku pripraviti boljši osnutek oglasa.
               To poveča občutek urejenosti in izboljša prvi vtis pri kupcu.
@@ -892,17 +925,17 @@ Namig:
           </div>
 
           <div class="price-card">
-            <div class="price-badge">Pripravljeno za Stripe</div>
-            <h3>Premium izpostavitev</h3>
-            <p>Za uporabnike, ki želijo večjo vidnost, bolj izpostavljen prikaz in hitrejši odziv kupcev.</p>
+            <div class="price-badge">Stripe aktiviran</div>
+            <h3>PRO oglas</h3>
+            <p>Za uporabnike, ki želijo večjo vrednost, bolj resen občutek in podporo razvoju platforme.</p>
 
             <div class="check-list">
-              <div class="check-item"><span>✓</span><span>Vidnejša predstavitev oglasa</span></div>
-              <div class="check-item"><span>✓</span><span>Bolj profesionalen premium prikaz</span></div>
-              <div class="check-item"><span>✓</span><span>Možnost hitre monetizacije prek Stripe</span></div>
+              <div class="check-item"><span>✓</span><span>Premium nadgradnja prek Stripe</span></div>
+              <div class="check-item"><span>✓</span><span>Bolj resen občutek produkta</span></div>
+              <div class="check-item"><span>✓</span><span>Prvi korak do dejanskega zaslužka</span></div>
             </div>
 
-            <a href="https://buy.stripe.com/test123" target="_blank" class="btn btn-primary">Izpostavi oglas</a>
+            <a href="https://buy.stripe.com/eVqcN4dAKgo4cpA7ow2B200" target="_blank" class="btn btn-primary">Kupi PRO oglas</a>
           </div>
         </div>
       </div>
