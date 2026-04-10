@@ -1,965 +1,198 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TOPAVTO | Moderna platforma za prodajo vozil</title>
-  <meta name="description" content="TOPAVTO je moderna platforma za prodajo in nakup vozil v Sloveniji." />
-  <style>
-    :root {
-      --bg: #0b1220;
-      --bg-soft: #111a2e;
-      --card: rgba(17, 26, 46, 0.82);
-      --card-strong: #16213a;
-      --text: #f8fafc;
-      --muted: #a8b3c7;
-      --line: rgba(255, 255, 255, 0.08);
-      --primary: #22c55e;
-      --primary-2: #16a34a;
-      --accent: #38bdf8;
-      --warning: #f59e0b;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      --radius: 22px;
-      --radius-sm: 14px;
-      --max: 1200px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.15), transparent 28%),
-        radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 30%),
-        linear-gradient(180deg, #08101d 0%, #0b1220 45%, #0a1020 100%);
-      color: var(--text);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: rgba(8, 16, 29, 0.78);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .topbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      min-height: 76px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      font-size: 1.2rem;
-    }
-
-    .brand-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: #04111d;
-      font-weight: 900;
-      box-shadow: var(--shadow);
-    }
-
-    nav {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
-
-    nav a {
-      color: var(--muted);
-      font-weight: 600;
-      transition: 0.2s ease;
-    }
-
-    nav a:hover {
-      color: var(--text);
-    }
-
-    .nav-cta {
-      padding: 12px 16px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #07111f;
-      border-radius: 999px;
-      font-weight: 800;
-    }
-
-    .hero {
-      padding: 72px 0 34px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero-copy h1 {
-      margin: 0 0 16px;
-      font-size: clamp(2.2rem, 5vw, 4.4rem);
-      line-height: 1.02;
-      letter-spacing: -1.5px;
-    }
-
-    .hero-copy p {
-      margin: 0 0 28px;
-      color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 700px;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .btn {
-      border: 0;
-      cursor: pointer;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.97rem;
-      transition: transform 0.18s ease, opacity 0.18s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      opacity: 0.96;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #06111d;
-      box-shadow: var(--shadow);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .hero-points {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .pill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--line);
-      color: #d9e4f3;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .hero-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .hero-card-top .mini {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .score {
-      background: rgba(34, 197, 94, 0.14);
-      color: #8bf0b1;
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      border: 1px solid rgba(34, 197, 94, 0.25);
-    }
-
-    .car-visual {
-      height: 220px;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(56,189,248,0.2), transparent 25%),
-        radial-gradient(circle at 80% 30%, rgba(34,197,94,0.15), transparent 24%),
-        linear-gradient(135deg, #182742, #0e1727);
-      border: 1px solid var(--line);
-      display: flex;
-      align-items: end;
-      justify-content: center;
-      padding: 18px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .car-visual::before {
-      content: "BMW M340d xDrive";
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      font-size: 0.9rem;
-      color: #d8e4f5;
-      font-weight: 700;
-      background: rgba(0,0,0,0.2);
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .car-shape {
-      width: 88%;
-      max-width: 340px;
-      height: 110px;
-      background: linear-gradient(180deg, #cbd5e1, #8ea0b6);
-      border-radius: 38px 68px 22px 22px;
-      position: relative;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
-    }
-
-    .car-shape::before,
-    .car-shape::after {
-      content: "";
-      position: absolute;
-      bottom: -18px;
-      width: 54px;
-      height: 54px;
-      background: #0f172a;
-      border: 8px solid #334155;
-      border-radius: 50%;
-    }
-
-    .car-shape::before {
-      left: 34px;
-    }
-
-    .car-shape::after {
-      right: 34px;
-    }
-
-    .car-meta {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .meta-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 12px;
-    }
-
-    .meta-box span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-bottom: 4px;
-    }
-
-    .meta-box strong {
-      font-size: 0.98rem;
-    }
-
-    .search-section {
-      padding: 16px 0 8px;
-    }
-
-    .search-box {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 26px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .search-title {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-
-    .search-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .field label {
-      font-size: 0.84rem;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .field input,
-    .field select {
-      width: 100%;
-      height: 48px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      padding: 0 14px;
-      outline: none;
-    }
-
-    .field input::placeholder {
-      color: #91a0b6;
-    }
-
-    .search-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 14px;
-      flex-wrap: wrap;
-    }
-
-    .section {
-      padding: 74px 0 20px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 22px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-    }
-
-    .section-head p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      max-width: 680px;
-      line-height: 1.7;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .car-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .car-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.28);
-    }
-
-    .car-image {
-      height: 190px;
-      background:
-        linear-gradient(135deg, rgba(56,189,248,0.22), rgba(34,197,94,0.12)),
-        linear-gradient(135deg, #16243d, #0d1729);
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      padding: 16px;
-    }
-
-    .car-tag {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      color: #eff6ff;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .price-tag {
-      background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #06111d;
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-size: 1rem;
-      font-weight: 900;
-    }
-
-    .car-content {
-      padding: 18px;
-    }
-
-    .car-content h3 {
-      margin: 0 0 10px;
-      font-size: 1.18rem;
-    }
-
-    .car-sub {
-      color: var(--muted);
-      margin-bottom: 14px;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    .specs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .spec {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      color: #d7e4f3;
-      font-size: 0.84rem;
-      border-radius: 999px;
-      padding: 8px 10px;
-      font-weight: 700;
-    }
-
-    .car-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .feature {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .feature-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 14px;
-      background: linear-gradient(135deg, rgba(34,197,94,0.22), rgba(56,189,248,0.22));
-      font-size: 1.3rem;
-    }
-
-    .feature h3 {
-      margin: 0 0 10px;
-      font-size: 1.05rem;
-    }
-
-    .feature p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      font-size: 0.95rem;
-    }
-
-    .stats {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .stat {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      text-align: center;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 1.9rem;
-      margin-bottom: 6px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .cta {
-      padding: 72px 0 88px;
-    }
-
-    .cta-box {
-      background:
-        radial-gradient(circle at top right, rgba(56,189,248,0.22), transparent 24%),
-        radial-gradient(circle at bottom left, rgba(34,197,94,0.18), transparent 24%),
-        linear-gradient(135deg, #10203a, #0d1728);
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      padding: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .cta-box h2 {
-      margin: 0 0 8px;
-      font-size: clamp(1.7rem, 3vw, 2.5rem);
-    }
-
-    .cta-box p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 700px;
-    }
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 26px 0 40px;
-      color: var(--muted);
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .mobile-menu {
-      display: none;
-    }
-
-    @media (max-width: 1080px) {
-      .hero-grid,
-      .cards,
-      .features,
-      .stats,
-      .search-grid,
-      .car-meta {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .cta-box {
-        flex-direction: column;
-        align-items: start;
-      }
-    }
-
-    @media (max-width: 760px) {
-      nav {
-        display: none;
-      }
-
-      .mobile-menu {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255,255,255,0.06);
-        color: var(--text);
-        border: 1px solid var(--line);
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-        font-size: 1.2rem;
-      }
-
-      .hero {
-        padding-top: 34px;
-      }
-
-      .hero-grid,
-      .cards,
-      .features,
-      .stats,
-      .search-grid,
-      .car-meta {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-copy h1 {
-        line-height: 1.08;
-      }
-
-      .section,
-      .cta {
-        padding-top: 58px;
-      }
-
-      .cta-box {
-        padding: 24px;
-      }
-
-      .topbar-inner {
-        min-height: 70px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOPAVTO</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0f172a;
+  color:white;
+}
+
+header {
+  padding:20px;
+  text-align:center;
+  font-size:28px;
+  background:#020617;
+}
+
+.hero {
+  text-align:center;
+  padding:60px 20px;
+}
+
+.hero h1 {
+  font-size:40px;
+}
+
+.btn {
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  margin:5px;
+}
+
+.btn-primary {
+  background:#22c55e;
+  color:black;
+}
+
+.btn-secondary {
+  background:#334155;
+  color:white;
+}
+
+.section {
+  padding:40px 20px;
+}
+
+.container {
+  max-width:1000px;
+  margin:auto;
+}
+
+.card {
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border-radius:8px;
+  border:none;
+}
+
+</style>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a href="#" class="brand">
-        <div class="brand-badge">T</div>
-        <span>TOPAVTO</span>
+
+<header>TOPAVTO</header>
+
+<section class="hero">
+  <h1>Prodamo vaš avto namesto vas</h1>
+  <p>Brez klicev, brez stresa, brez izgube časa</p>
+
+  <button class="btn btn-primary" onclick="scrollToSection('pro')">Prodaj moj avto</button>
+  <button class="btn btn-secondary" onclick="scrollToSection('ai')">Ustvari oglas</button>
+</section>
+
+<!-- AI SECTION -->
+<section class="section" id="ai">
+  <div class="container">
+
+    <h2>AI generator oglasa</h2>
+
+    <div class="card">
+      <input id="brand" placeholder="Znamka">
+      <input id="model" placeholder="Model">
+      <input id="year" placeholder="Letnik">
+      <input id="km" placeholder="Kilometri">
+      <input id="fuel" placeholder="Gorivo">
+      <input id="price" placeholder="Cena">
+
+      <button class="btn btn-primary" onclick="generateAd()">Generiraj oglas</button>
+    </div>
+
+    <div class="card">
+      <h3>Rezultat:</h3>
+      <div id="output">Oglas se prikaže tukaj...</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRO SECTION -->
+<section class="section" id="pro">
+  <div class="container">
+
+    <h2>Prodamo vaš avto</h2>
+
+    <div class="card">
+      <p>✔ Brez klicev</p>
+      <p>✔ Hitrejša prodaja</p>
+      <p>✔ Plačate samo, če prodamo</p>
+    </div>
+
+    <div class="card">
+      <h3>Oddaj avto</h3>
+
+      <form onsubmit="submitCar(event)">
+        <input placeholder="Ime" required>
+        <input placeholder="Telefon" required>
+        <input placeholder="Znamka + model" required>
+        <input placeholder="Letnik" required>
+        <input placeholder="Cena" required>
+        <textarea placeholder="Opis"></textarea>
+
+        <button class="btn btn-primary">Oddaj</button>
+      </form>
+
+      <p style="font-size:12px;">Provizija od 100€ naprej</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- STRIPE -->
+<section class="section">
+  <div class="container">
+
+    <div class="card">
+      <h2>Premium oglas</h2>
+      <p>Izpostavi svoj avto in ga prodaj hitreje</p>
+
+      <a href="https://buy.stripe.com/test123" target="_blank">
+        <button class="btn btn-primary">Izpostavi oglas</button>
       </a>
-
-      <nav>
-        <a href="#oglasi">Oglasi</a>
-        <a href="#prednosti">Prednosti</a>
-        <a href="#premium">Premium</a>
-        <a href="#kontakt">Kontakt</a>
-        <a href="#" class="nav-cta">Objavi oglas</a>
-      </nav>
-
-      <button class="mobile-menu" aria-label="Meni">☰</button>
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <h1>Prodaja avtomobilov, narejena za leto 2026.</h1>
-          <p>
-            TOPAVTO je moderna slovenska platforma za nakup in prodajo vozil.
-            Hitrejše iskanje, lepši oglasi, več zaupanja in boljša izkušnja kot klasični portali.
-          </p>
+  </div>
+</section>
 
-          <div class="hero-actions">
-            <a href="#oglasi" class="btn btn-primary">Prebrskaj vozila</a>
-            <a href="#premium" class="btn btn-secondary">Poglej premium pakete</a>
-          </div>
+<footer style="text-align:center; padding:20px;">
+© 2026 TOPAVTO
+</footer>
 
-          <div class="hero-points">
-            <div class="pill">✓ Preverjeni oglasi</div>
-            <div class="pill">✓ Premium izpostavitve</div>
-            <div class="pill">✓ Hiter kontakt kupca</div>
-            <div class="pill">✓ Mobilna izkušnja</div>
-          </div>
-        </div>
+<script>
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
 
-        <div class="hero-card">
-          <div class="hero-card-top">
-            <div>
-              <div class="mini">Izpostavljen oglas</div>
-              <strong>Več zaupanja, več povpraševanj</strong>
-            </div>
-            <div class="score">TOP SCORE 9.8</div>
-          </div>
+function generateAd(){
+  let brand = document.getElementById("brand").value;
+  let model = document.getElementById("model").value;
+  let year = document.getElementById("year").value;
+  let km = document.getElementById("km").value;
+  let fuel = document.getElementById("fuel").value;
+  let price = document.getElementById("price").value;
 
-          <div class="car-visual">
-            <div class="car-shape"></div>
-          </div>
+  let result = `
+<b>${brand} ${model} ${year}</b><br><br>
+Prodamo ${brand} ${model}, letnik ${year}.<br>
+Prevoženih ${km} km, gorivo: ${fuel}.<br><br>
+✔ Odlično stanje<br>
+✔ Redno servisiran<br><br>
+Cena: ${price} €
+`;
 
-          <div class="car-meta">
-            <div class="meta-box">
-              <span>Cena</span>
-              <strong>32.900 €</strong>
-            </div>
-            <div class="meta-box">
-              <span>Letnik</span>
-              <strong>2021</strong>
-            </div>
-            <div class="meta-box">
-              <span>Menjalnik</span>
-              <strong>Avtomatik</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  document.getElementById("output").innerHTML = result;
+}
 
-    <section class="search-section">
-      <div class="container">
-        <div class="search-box">
-          <div class="search-title">Hitro iskanje vozil</div>
+function submitCar(e){
+  e.preventDefault();
+  alert("Hvala! Kontaktirali vas bomo.");
+}
+</script>
 
-          <div class="search-grid">
-            <div class="field">
-              <label>Znamka</label>
-              <select>
-                <option>Izberi znamko</option>
-                <option>BMW</option>
-                <option>Audi</option>
-                <option>Mercedes-Benz</option>
-                <option>Volkswagen</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Model</label>
-              <input type="text" placeholder="npr. A4, Golf, 320d" />
-            </div>
-
-            <div class="field">
-              <label>Cena do</label>
-              <select>
-                <option>Brez omejitve</option>
-                <option>5.000 €</option>
-                <option>10.000 €</option>
-                <option>20.000 €</option>
-                <option>30.000 €</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Gorivo</label>
-              <select>
-                <option>Vse</option>
-                <option>Bencin</option>
-                <option>Dizel</option>
-                <option>Hibrid</option>
-                <option>Električni</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>Regija</label>
-              <select>
-                <option>Celotna Slovenija</option>
-                <option>Ljubljana</option>
-                <option>Maribor</option>
-                <option>Celje</option>
-                <option>Koper</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="search-actions">
-            <button class="btn btn-primary" onclick="showSearchMessage()">Išči vozila</button>
-            <button class="btn btn-secondary">Shrani iskanje</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="oglasi">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Izpostavljena vozila</h2>
-            <p>
-              Premium oglasi z boljšim prikazom, boljšo vidnostjo in večjim zaupanjem kupcev.
-            </p>
-          </div>
-        </div>
-
-        <div class="cards">
-          <article class="car-card">
-            <div class="car-image">
-              <span class="car-tag">PREMIUM</span>
-              <span class="price-tag">19.900 €</span>
-            </div>
-            <div class="car-content">
-              <h3>BMW 320d M Sport</h3>
-              <div class="car-sub">2019 • Dizel • 158.000 km • Avtomatik</div>
-              <div class="specs">
-                <span class="spec">1. lastnik</span>
-                <span class="spec">Servisna knjiga</span>
-                <span class="spec">Možen leasing</span>
-              </div>
-              <div class="car-footer">
-                <span>Ljubljana</span>
-                <span>1123 ogledov</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="car-card">
-            <div class="car-image">
-              <span class="car-tag">TOP IZBIRA</span>
-              <span class="price-tag">22.500 €</span>
-            </div>
-            <div class="car-content">
-              <h3>Audi A4 Avant S line</h3>
-              <div class="car-sub">2020 • Dizel • 145.000 km • Avtomatik</div>
-              <div class="specs">
-                <span class="spec">ACC</span>
-                <span class="spec">LED</span>
-                <span class="spec">Navi</span>
-              </div>
-              <div class="car-footer">
-                <span>Maribor</span>
-                <span>894 ogledov</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="car-card">
-            <div class="car-image">
-              <span class="car-tag">VERIFIED</span>
-              <span class="price-tag">13.800 €</span>
-            </div>
-            <div class="car-content">
-              <h3>VW Golf 1.5 TSI</h3>
-              <div class="car-sub">2018 • Bencin • 132.000 km • Ročni menjalnik</div>
-              <div class="specs">
-                <span class="spec">Slovensko vozilo</span>
-                <span class="spec">2 ključa</span>
-                <span class="spec">Tempomat</span>
-              </div>
-              <div class="car-footer">
-                <span>Celje</span>
-                <span>741 ogledov</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="prednosti">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <h2>Zakaj je TOPAVTO boljši</h2>
-            <p>
-              Narejen je za hitrost, zaupanje in boljši rezultat prodajalca. To ni samo oglasnik, ampak moderna platforma.
-            </p>
-          </div>
-        </div>
-
-        <div class="features">
-          <div class="feature">
-            <div class="feature-icon">🚗</div>
-            <h3>Premium oglasi</h3>
-            <p>Izpostavi vozilo na vrhu rezultatov in pridobi več ogledov ter več resnih kupcev.</p>
-          </div>
-
-          <div class="feature">
-            <div class="feature-icon">🛡️</div>
-            <h3>Več zaupanja</h3>
-            <p>Preverjeni prodajalci, jasni podatki in boljši prikaz zgodovine oglasa.</p>
-          </div>
-
-          <div class="feature">
-            <div class="feature-icon">⚡</div>
-            <h3>Hitrejša izkušnja</h3>
-            <p>Čist dizajn, hitro iskanje in mobilna optimizacija za sodobne uporabnike.</p>
-          </div>
-
-          <div class="feature">
-            <div class="feature-icon">💬</div>
-            <h3>Več povpraševanj</h3>
-            <p>Jasen kontakt, boljša predstavitev oglasa in večja konverzija v klice in sporočila.</p>
-          </div>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <strong>25k+</strong>
-            <span>Mesečnih obiskov</span>
-          </div>
-          <div class="stat">
-            <strong>1.2k+</strong>
-            <span>Aktivnih oglasov</span>
-          </div>
-          <div class="stat">
-            <strong>9.8/10</strong>
-            <span>Uporabniška ocena</span>
-          </div>
-          <div class="stat">
-            <strong>3x</strong>
-            <span>Večja vidnost premium</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta" id="premium">
-      <div class="container">
-        <div class="cta-box">
-          <div>
-            <h2>Pripravljeno za Stripe premium pakete</h2>
-            <p>
-              Ko boš želel, tukaj poveževa tvoj Stripe link in naredimo gumbe za
-              “Izpostavi oglas”, “Top pozicija” in “Avtohiša paket”.
-            </p>
-          </div>
-
-          <a href="#" class="btn btn-primary">Poveži premium paket</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer id="kontakt">
-    <div class="container footer-inner">
-      <div>© 2026 TOPAVTO. Vse pravice pridržane.</div>
-      <div>Kontakt: info@topavto.si</div>
-    </div>
-  </footer>
-
-  <script>
-    function showSearchMessage() {
-      alert("To je demo iskalnik. Naslednji korak je povezava z bazo oglasov.");
-    }
-  </script>
 </body>
 </html>
