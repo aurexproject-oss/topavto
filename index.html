@@ -1,857 +1,143 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TOPAVTO | Prodaj avto hitreje</title>
-  <meta name="description" content="TOPAVTO ti pomaga ustvariti boljši oglas za avto. Hitro, enostavno in brez kompliciranja. PRO nadgradnja je na voljo takoj." />
-  <style>
-    :root {
-      --bg: #08111f;
-      --bg2: #0b1220;
-      --card: #111b2d;
-      --card2: #162238;
-      --text: #f8fafc;
-      --muted: #aab7ca;
-      --line: rgba(255,255,255,0.08);
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --accent: #f59e0b;
-      --success: #22c55e;
-      --radius: 22px;
-      --shadow: 0 20px 50px rgba(0,0,0,0.28);
-      --max: 1120px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(37,99,235,0.16), transparent 25%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-      color: var(--text);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 32px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(8,17,31,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .topbar-inner {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: 0.3px;
-    }
-
-    .brand-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, #2563eb, #38bdf8);
-      box-shadow: var(--shadow);
-      font-weight: 900;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-
-    nav a {
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    nav a:hover {
-      color: var(--text);
-    }
-
-    .nav-cta {
-      padding: 12px 16px;
-      background: var(--primary);
-      border-radius: 999px;
-      color: white;
-      font-weight: 800;
-    }
-
-    .hero {
-      padding: 72px 0 38px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 26px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(37,99,235,0.14);
-      border: 1px solid rgba(59,130,246,0.22);
-      color: #bfdbfe;
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      margin: 0 0 16px;
-      font-size: clamp(2.2rem, 5vw, 4.3rem);
-      line-height: 1.03;
-      letter-spacing: -1.4px;
-      max-width: 740px;
-    }
-
-    .lead {
-      margin: 0 0 24px;
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 1.08rem;
-      max-width: 700px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 18px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.96rem;
-      border: 0;
-      cursor: pointer;
-      transition: 0.18s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: var(--shadow);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .pill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--line);
-      color: #dbe7f5;
-      font-size: 0.92rem;
-      font-weight: 700;
-    }
-
-    .hero-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.15rem;
-    }
-
-    .hero-card p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .car-visual {
-      height: 220px;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(56,189,248,0.16), transparent 24%),
-        linear-gradient(135deg, #17253c, #0f172a);
-      border: 1px solid var(--line);
-      display: flex;
-      align-items: end;
-      justify-content: center;
-      padding: 18px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .car-visual::before {
-      content: "Primer boljšega oglasa";
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.78rem;
-      font-weight: 800;
-    }
-
-    .car-shape {
-      width: 88%;
-      max-width: 340px;
-      height: 108px;
-      background: linear-gradient(180deg, #dbe4ef, #90a3bb);
-      border-radius: 38px 70px 24px 24px;
-      position: relative;
-      box-shadow: 0 28px 40px rgba(0,0,0,0.24);
-    }
-
-    .car-shape::before,
-    .car-shape::after {
-      content: "";
-      position: absolute;
-      bottom: -18px;
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      background: #0f172a;
-      border: 8px solid #334155;
-    }
-
-    .car-shape::before {
-      left: 34px;
-    }
-
-    .car-shape::after {
-      right: 34px;
-    }
-
-    .mini-note {
-      margin-top: 16px;
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(34,197,94,0.1);
-      border: 1px solid rgba(34,197,94,0.18);
-      color: #d7f8e3;
-      line-height: 1.6;
-      font-size: 0.93rem;
-    }
-
-    .section {
-      padding: 68px 0 10px;
-    }
-
-    .section-head {
-      margin-bottom: 22px;
-    }
-
-    .section-head h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 760px;
-      line-height: 1.75;
-    }
-
-    .benefits {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .benefit {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .benefit-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 14px;
-      background: rgba(37,99,235,0.14);
-      color: #bfdbfe;
-      font-size: 1.25rem;
-    }
-
-    .benefit h3 {
-      margin: 0 0 10px;
-    }
-
-    .benefit p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    .ai-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .panel h3 {
-      margin: 0 0 8px;
-    }
-
-    .panel p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .field {
-      margin-bottom: 12px;
-    }
-
-    .field label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.86rem;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      border-radius: 14px;
-      padding: 14px;
-      outline: none;
-      font-size: 0.96rem;
-    }
-
-    .field textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .field input::placeholder,
-    .field textarea::placeholder {
-      color: #8fa3bc;
-    }
-
-    .helper-note {
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 14px;
-      background: rgba(34,197,94,0.12);
-      border: 1px solid rgba(34,197,94,0.18);
-      color: #d9fbe7;
-      line-height: 1.6;
-      font-size: 0.92rem;
-    }
-
-    .output-box {
-      min-height: 320px;
-      white-space: pre-line;
-      line-height: 1.75;
-      color: #e7eff8;
-      background: rgba(255,255,255,0.03);
-      border: 1px dashed rgba(255,255,255,0.14);
-      border-radius: 18px;
-      padding: 16px;
-    }
-
-    .upsell {
-      margin-top: 18px;
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(245,158,11,0.10);
-      border: 1px solid rgba(245,158,11,0.18);
-    }
-
-    .upsell strong {
-      display: block;
-      margin-bottom: 8px;
-      color: #fde68a;
-      font-size: 1rem;
-    }
-
-    .upsell p {
-      margin: 0 0 14px;
-      color: #f8e8b0;
-      line-height: 1.65;
-      font-size: 0.94rem;
-    }
-
-    .pricing {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .price-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .price-badge {
-      display: inline-block;
-      margin-bottom: 14px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(245,158,11,0.12);
-      border: 1px solid rgba(245,158,11,0.2);
-      color: #fcd34d;
-      font-size: 0.84rem;
-      font-weight: 800;
-    }
-
-    .price-card h3 {
-      margin: 0 0 8px;
-    }
-
-    .price-card p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .check-list {
-      display: grid;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .check-item {
-      display: flex;
-      gap: 10px;
-      align-items: start;
-      color: #dbe7f6;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    .check-item span:first-child {
-      color: #86efac;
-      font-weight: 900;
-    }
-
-    .cta-box {
-      background:
-        radial-gradient(circle at top right, rgba(59,130,246,0.18), transparent 24%),
-        linear-gradient(135deg, #12203a, #0f1728);
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-    }
-
-    .cta-box h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.7rem, 3vw, 2.35rem);
-    }
-
-    .cta-box p {
-      margin: 0 0 18px;
-      color: var(--muted);
-      max-width: 760px;
-      line-height: 1.8;
-    }
-
-    footer {
-      padding: 28px 0 42px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      margin-top: 70px;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .benefits,
-      .ai-wrap,
-      .pricing {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 760px) {
-      nav {
-        display: none;
-      }
-
-      .hero,
-      .section {
-        padding-top: 54px;
-      }
-
-      h1 {
-        line-height: 1.08;
-      }
-
-      .topbar-inner {
-        min-height: 68px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOPAVTO.si | Prodaj brez neresnih kupcev</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0b1220;
+  color:white;
+  text-align:center;
+}
+
+.container {
+  max-width:600px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+h1 {
+  font-size:32px;
+}
+
+p {
+  color:#aab7ca;
+}
+
+input, textarea {
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button {
+  padding:14px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary {
+  background:#2563eb;
+  color:white;
+}
+
+.card {
+  background:#111b2d;
+  padding:20px;
+  border-radius:12px;
+  margin-top:20px;
+}
+</style>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a href="#" class="brand">
-        <div class="brand-badge">T</div>
-        <span>TOPAVTO</span>
-      </a>
 
-      <nav>
-        <a href="#prednosti">Prednosti</a>
-        <a href="#ai">Preizkusi</a>
-        <a href="#premium">PRO</a>
-        <a href="#kontakt">Kontakt</a>
-        <a href="#ai" class="nav-cta">Začni brezplačno</a>
-      </nav>
-    </div>
-  </header>
+<div class="container">
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">Enostavno orodje za boljši oglas</div>
-          <h1>Napiši boljši oglas za svoj avto v manj kot 1 minuti</h1>
-          <p class="lead">
-            Vnesi podatke o vozilu in TOPAVTO ti pripravi bolj urejen, bolj jasen in bolj prodajen osnutek oglasa.
-            Brez kompliciranja, brez zmede in brez dolgega pisanja.
-          </p>
+<h1>Ustavi neresne kupce in prodaj hitreje</h1>
 
-          <div class="hero-actions">
-            <a href="#ai" class="btn btn-primary">Preizkusi brezplačno</a>
-            <a href="https://buy.stripe.com/eVqcN4dAKgo4cpA7ow2B200" target="_blank" class="btn btn-secondary">Nadgradi na PRO</a>
-          </div>
+<p>
+TOPAVTO ti pomaga napisati oglas in odstraniti ljudi,
+ki samo sprašujejo brez namena nakupa.
+</p>
 
-          <div class="trust-row">
-            <div class="pill">✓ Brezplačen začetek</div>
-            <div class="pill">✓ Besedilo lahko vedno popravite</div>
-            <div class="pill">✓ Hiter in enostaven postopek</div>
-          </div>
-        </div>
+<div class="card">
 
-        <div class="hero-card">
-          <h3>Zakaj to deluje</h3>
-          <p>
-            Dober oglas naredi boljši prvi vtis. TOPAVTO pomaga uporabniku, da vozilo predstavi bolj jasno,
-            bolj profesionalno in bolj prepričljivo.
-          </p>
+<input id="brand" placeholder="Znamka (npr. BMW)">
+<input id="model" placeholder="Model">
+<input id="price" placeholder="Cena">
 
-          <div class="car-visual">
-            <div class="car-shape"></div>
-          </div>
+<textarea id="extra" placeholder="Dodatne informacije"></textarea>
 
-          <div class="mini-note">
-            Besedilo je samo predlog. Uporabnik ima vedno popoln nadzor in lahko vse prilagodi po svoje.
-          </div>
-        </div>
-      </div>
-    </section>
+<button class="primary" onclick="generate()">Ustvari oglas</button>
 
-    <section class="section" id="prednosti">
-      <div class="container">
-        <div class="section-head">
-          <h2>Zakaj uporabniki kliknejo naprej</h2>
-          <p>
-            Stran prodaja bolje, ko je ponudba jasna. Zato TOPAVTO ne prodaja “tehnologije”, ampak konkreten rezultat:
-            boljši oglas in hitrejši začetek.
-          </p>
-        </div>
+</div>
 
-        <div class="benefits">
-          <div class="benefit">
-            <div class="benefit-icon">✍️</div>
-            <h3>Manj pisanja</h3>
-            <p>Ni ti treba razmišljati, kako napisati oglas od začetka. Sistem ti pripravi uporaben osnutek.</p>
-          </div>
+<div id="result" class="card">
+Tukaj se bo prikazal rezultat
+</div>
 
-          <div class="benefit">
-            <div class="benefit-icon">⚡</div>
-            <h3>Hitrejši rezultat</h3>
-            <p>V manj kot minuti dobiš osnovo, ki jo lahko takoj uporabiš ali dodatno izboljšaš.</p>
-          </div>
+</div>
 
-          <div class="benefit">
-            <div class="benefit-icon">💎</div>
-            <h3>PRO nadgradnja</h3>
-            <p>Za uporabnike, ki želijo narediti še bolj resen vtis, je PRO možnost na voljo takoj.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<script>
+function generate(){
 
-    <section class="section" id="ai">
-      <div class="container">
-        <div class="section-head">
-          <h2>Preizkusi brezplačno</h2>
-          <p>
-            Vnesi osnovne podatke o vozilu in ustvari osnutek oglasa. Ko vidiš rezultat, lahko po želji odkleneš še PRO možnost.
-          </p>
-        </div>
+let brand = document.getElementById("brand").value;
+let model = document.getElementById("model").value;
+let price = document.getElementById("price").value;
+let extra = document.getElementById("extra").value;
 
-        <div class="ai-wrap">
-          <div class="panel">
-            <h3>Podatki o vozilu</h3>
-            <p>Bolj natančni kot bodo podatki, boljši bo končni osnutek.</p>
+if(!brand || !model){
+  document.getElementById("result").innerText="Vnesi vsaj znamko in model.";
+  return;
+}
 
-            <div class="field">
-              <label for="brand">Znamka</label>
-              <input id="brand" type="text" placeholder="npr. BMW" />
-            </div>
+let buyers = [
+  {name:"Marko", msg:"Je še na voljo?", score:45},
+  {name:"Andrej", msg:"Kdaj lahko pridem?", score:88},
+  {name:"Tina", msg:"Zadnja cena?", score:60}
+];
 
-            <div class="field">
-              <label for="model">Model</label>
-              <input id="model" type="text" placeholder="npr. 320d" />
-            </div>
+let list = buyers.map(b => `
+<div style="margin-top:10px;">
+<strong>${b.name}</strong>: ${b.msg}<br>
+<span style="color:${b.score>80?'lightgreen':b.score>60?'orange':'red'};">
+${b.score}% resnost
+</span>
+</div>
+`).join("");
 
-            <div class="field">
-              <label for="year">Letnik</label>
-              <input id="year" type="text" placeholder="npr. 2019" />
-            </div>
+document.getElementById("result").innerHTML = `
+<h3>${brand} ${model}</h3>
 
-            <div class="field">
-              <label for="km">Kilometri</label>
-              <input id="km" type="text" placeholder="npr. 148000" />
-            </div>
+<p>Prodamo ${brand} ${model}. Cena: ${price}</p>
 
-            <div class="field">
-              <label for="fuel">Gorivo</label>
-              <select id="fuel">
-                <option value="">Izberite</option>
-                <option>Bencin</option>
-                <option>Dizel</option>
-                <option>Hibrid</option>
-                <option>Električni</option>
-              </select>
-            </div>
+<p>${extra}</p>
 
-            <div class="field">
-              <label for="price">Cena</label>
-              <input id="price" type="text" placeholder="npr. 18900 €" />
-            </div>
+<hr>
 
-            <div class="field">
-              <label for="extra">Dodatne informacije</label>
-              <textarea id="extra" placeholder="npr. redno servisiran, slovensko vozilo, 2 ključa, servisna knjiga"></textarea>
-            </div>
+<h3>Analiza kupcev</h3>
 
-            <button class="btn btn-primary" onclick="generateAd()">Ustvari oglas</button>
+${list}
 
-            <div class="helper-note">
-              Orodje pomaga pri pisanju. Končno besedilo lahko vedno prilagodiš in popraviš.
-            </div>
-          </div>
+<p style="margin-top:15px; color:orange;">
+🔒 PRO filtrira samo resne kupce
+</p>
 
-          <div class="panel">
-            <h3>Rezultat</h3>
-            <p>Spodaj se prikaže osnutek oglasa, ki ga lahko uporabiš kot osnovo.</p>
+<a href="https://buy.stripe.com/eVqcN4dAKgo4cpA7ow2B200" target="_blank">
+<button class="primary">Odkleni PRO</button>
+</a>
+`;
+}
+</script>
 
-            <div class="output-box" id="output">
-Tukaj se bo prikazal osnutek oglasa.
-
-Namig:
-- dodaj točne podatke
-- napiši realno stanje vozila
-- izpostavi ohranjenost in servisno zgodovino
-            </div>
-
-            <div class="upsell">
-              <strong>Želiš še boljši oglas?</strong>
-              <p>
-                PRO različica je namenjena uporabnikom, ki želijo bolj prepričljiv, bolj urejen in bolj prodajno usmerjen opis.
-              </p>
-              <a href="https://buy.stripe.com/eVqcN4dAKgo4cpA7ow2B200" target="_blank" class="btn btn-primary">
-                Odkleni PRO oglas
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="premium">
-      <div class="container">
-        <div class="section-head">
-          <h2>Preprost prodajni model</h2>
-          <p>
-            Najprej uporabnik brezplačno vidi vrednost. Ko želi boljši rezultat, lahko naredi hiter upgrade na PRO.
-          </p>
-        </div>
-
-        <div class="pricing">
-          <div class="price-card">
-            <div class="price-badge">Brezplačno</div>
-            <h3>Osnovni osnutek</h3>
-            <p>Dovolj za uporabnike, ki želijo hitro osnovo in jo potem uredijo sami.</p>
-
-            <div class="check-list">
-              <div class="check-item"><span>✓</span><span>Hiter začetek</span></div>
-              <div class="check-item"><span>✓</span><span>Osnovni opis oglasa</span></div>
-              <div class="check-item"><span>✓</span><span>Brez tveganja</span></div>
-            </div>
-
-            <a href="#ai" class="btn btn-secondary">Preizkusi brezplačno</a>
-          </div>
-
-          <div class="price-card">
-            <div class="price-badge">PRO nadgradnja</div>
-            <h3>Odkleni PRO oglas</h3>
-            <p>Za uporabnike, ki želijo boljši prvi vtis in bolj prodajno usmerjeno predstavitev vozila.</p>
-
-            <div class="check-list">
-              <div class="check-item"><span>✓</span><span>Jasen premium CTA</span></div>
-              <div class="check-item"><span>✓</span><span>Takojšen Stripe nakup</span></div>
-              <div class="check-item"><span>✓</span><span>Prvi korak do zaslužka</span></div>
-            </div>
-
-            <a href="https://buy.stripe.com/eVqcN4dAKgo4cpA7ow2B200" target="_blank" class="btn btn-primary">Kupi PRO oglas</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="kontakt">
-      <div class="container">
-        <div class="cta-box">
-          <h2>Preprosto, jasno in prodajno</h2>
-          <p>
-            Ta verzija strani je narejena za eno stvar: da uporabnik hitro razume vrednost, preizkusi orodje in po želji klikne na PRO.
-          </p>
-          <div class="hero-actions">
-            <a href="#ai" class="btn btn-primary">Začni zdaj</a>
-            <a href="mailto:info@topavto.si" class="btn btn-secondary">Kontakt</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container footer-inner">
-      <div>© 2026 TOPAVTO. Vse pravice pridržane.</div>
-      <div>Kontakt: info@topavto.si</div>
-    </div>
-  </footer>
-
-  <script>
-    function generateAd() {
-      const brand = document.getElementById("brand").value.trim();
-      const model = document.getElementById("model").value.trim();
-      const year = document.getElementById("year").value.trim();
-      const km = document.getElementById("km").value.trim();
-      const fuel = document.getElementById("fuel").value.trim();
-      const price = document.getElementById("price").value.trim();
-      const extra = document.getElementById("extra").value.trim();
-
-      if (!brand || !model || !year) {
-        document.getElementById("output").innerText =
-          "Za začetek vnesi vsaj znamko, model in letnik vozila.";
-        return;
-      }
-
-      const title = `${brand} ${model}, ${year}`;
-      const line1 = `Prodamo ${brand} ${model}, letnik ${year}.`;
-      const line2 = km ? `Vozilo ima prevoženih ${km} km.` : "";
-      const line3 = fuel ? `Pogon: ${fuel}.` : "";
-      const line4 = `Oglas je pripravljen tako, da vozilo predstavi jasno, pregledno in profesionalno.`;
-      const line5 = extra ? `Dodatne informacije: ${extra}.` : "";
-      const line6 = price ? `Cena: ${price}.` : "";
-      const line7 = `Besedilo lahko pred objavo vedno dodatno prilagodiš po svojih željah.`;
-
-      document.getElementById("output").innerText =
-`${title}
-
-${line1}
-${line2}
-${line3}
-${line4}
-${line5}
-${line6}
-
-${line7}`.replace(/\n\n+/g, "\n\n").trim();
-    }
-  </script>
 </body>
 </html>
